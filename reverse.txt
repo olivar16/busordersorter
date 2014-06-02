@@ -1,0 +1,8 @@
+1 1643 Gillig Phantom security camera not working
+2 2317 New_Flyer D40LF tune up
+3 2940 New_Flyer D40LFR sluggish power steering
+4 2939 New_Flyer D40LFR air conditioner broken
+5 3106 Gillig BRT parking brake unable to hold vehicle
+6 3105 Gillig BRT poor tire tread
+7 3053 Gillig BRT(HE) kneeling and raising system cannot lower to curb
+8 3055 Gillig BRT(HE) wheelchair ramp does not unfold

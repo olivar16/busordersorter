@@ -1,0 +1,25 @@
+1 2651 New_Flyer DE40LF needs battery replacement
+2 421 Siemens S70 broken intercom
+3 2702 New_Flyer D40LF diesel engine trouble
+4 2933 New_Flyer D40LFR new advertisement
+5 2901 New_Flyer D40LFR tune up
+6 2705 New_Flyer D40LF broken headlight
+7 2128 Gillig Phantom wheelchair ramp does not unfold
+8 2562 New_Flyer DE40LF kneeling and raising system cannot lower to curb
+9 2934 New_Flyer D40LFR new advertisement
+10 2133 Gillig Phantom broken turn signals
+11 2134 Gillig Phantom security camera not working
+12 1454 Gillig Phantom broken fuel pump
+13 1908 Flxible Metro rebuild transmission
+14 2222 New_Flyer D40LF tune up
+15 2317 New_Flyer D40LF tune up
+16 2128 Gillig Phantom wheelchair ramp does not unfold
+17 2723 New_Flyer D40LF broken bike rack 
+18 2166 Gillig Phantom timing chain broken
+19 2940 New_Flyer D40LFR air conditioner broken
+20 2939 New_Flyer D40LFR air conditioner broken
+21 2938 New_Flyer D40LFR hydraulic master cylinder-level low
+22 2559 New_Flyer D40LF parking brake unable to hold vehicle
+23 2913 New_Flyer D40LFR leaking differential
+24 1417 Gillig Phanton poor tire tread
+25 2940 New_Flyer D40LFR sluggish power steering

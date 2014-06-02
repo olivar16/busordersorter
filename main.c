@@ -1,0 +1,215 @@
+/* Filename: main.c
+ * Author:Paul Ryan Olivar
+ */
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+// Include the .h files provided by the starter code.  CS305 students
+// should not need to create any other header files.
+#include "workorder.h"
+#include "list.h"
+
+// Constant values used by the main function.
+#define REQUIRED_ARGS 2
+#define USAGE "usage: %s <workorder input file> . \n"
+
+// Function prototypes for the main function.
+void usage(int argc, char * argv[]);
+
+
+
+
+// main():  The main entrypoint of the program.  
+//
+// Important!  
+//    CS305 Students should not alter this main()function, but
+//    instead should review the code to understand the steps
+//    being taken by the program.  
+//
+//    To complete HW3, students must implement these functions
+//    that are called directly or indirectly by main():
+//
+//    (-) initialize()
+//    (-) priorityInsert()
+//    (-) mergeSortHelper()
+//    (-) freeList()
+//
+//    Stubs for these functions are provided in list.c.
+// 
+int main(int argc, char **argv)
+{
+
+  WorkOrder * workOrderArray = NULL;
+  WorkOrder * current = NULL;
+
+  // The linked list for Elsa's work orders.
+  ListHeader * elsaList = NULL;
+
+  int i = 0;
+  int number = 0;
+
+  
+  /* 
+   * Before starting any computation in main(), check that the number
+   * of command line parameters is correct
+   */
+  usage(argc, argv);  
+
+
+  // ****************************************************************
+  // PHASE 1: Read all of the work orders from the input file.
+  // Save the data as an unsorted linked list of WorkOrders.  
+  //
+  // CS305 students do not need to alter this code in main(). This
+  // phase is completed in the starter code.
+
+
+  /* Create an array of work orders; the number of work
+   * orders is returned and stored in number.
+   */
+  if ((number = allocateWorkOrders(argv[1], &workOrderArray)) == 0)
+    {
+      printf("\nUnable to read input file %s.\n", argv[1]);
+      return -1;
+    }
+
+  /* workOrderArray now points to a contiguous block of memory, comprised
+   * of the 'number' of work orders read from the file.
+   */
+  printf("--------------------------------PHASE 1-------------------------------+");
+
+  printf("\n  * Successfully read %d work orders from %s.  \n  * These are now stored, as an array, in workOrderArray. \n  * Below are entries listed 0 through %d:\n", number, argv[1], number - 1);
+
+
+  /* Pretty-print the work orders to the console.
+   */
+  printWorkOrders(workOrderArray, number);
+ 
+
+
+ 
+  // ****************************************************************
+  // PHASE 2: From the array of WorkOrders, workOrderArray, assign
+  // work to elsa by creating a prioritized linked list, pointed to by
+  // elsaList.
+  //
+  // CS305 Students do not need to alter this code in main(), but they
+  // must implement these functions in list.c:
+  //
+  // (*) initialize()
+  // (*) priorityInsert()
+  //
+
+  /* Step 1. Initialize Elsa's linked list.
+   */
+
+
+
+  if( initialize(&elsaList) != INITIALIZE_SUCCESS)
+    {
+      freeWorkOrders(&workOrderArray, number);
+      printf("Failed to initialize the linked list.  Exiting...\n");
+      return EXIT_FAILURE;
+    }
+
+  /* Step 2. Cycle through all the workorders in the workOrderArray.
+   * Insert them into Elsa's list according to the priority rules.
+   */
+  for(i = 0; i < number; i ++)
+    {
+      // Insert items into the list as long as insert is not failing.
+      if( priorityInsert(workOrderArray + i, elsaList) == INITIALIZE_FAILURE)
+	{
+	  /* Free the memory allocated for the workOrderArray and Elsa's
+	   * linked list.
+	   */
+	  freeWorkOrders(&workOrderArray, number);
+	  
+	  /* Free up all memory allocated to the linked list.
+	   */
+	  freeList(&elsaList);
+
+	  printf("Failed to create the linked list.  Exiting...\n");
+	  return EXIT_FAILURE;
+	}
+    }
+
+
+  /* Step 3. Print Elsa's priority queue after the work has been
+   * prioritized.
+   */
+  printf("\n+-------------------------------PHASE 2-------------------------------+");
+  printf("\nElsa's prioritized work list. \n");
+  printList(elsaList);
+  printf("\n");
+
+
+
+  // ****************************************************************
+  // PHASE 3: Use the mergeSort algorithm to sort all of the work
+  // orders by model number.  Print the resulting list.
+  //
+  // CS305 Students do not need to alter this code in main(), but they
+  // must implement these functions in list.c:
+  // 
+  // (*) mergeSortHelper().
+  //
+
+  /* Step 4. Sort the list lexicographically by model number using
+   * mergeSort algorithm.
+   */
+  mergeSort(elsaList);
+
+
+  /* Step 5. Print the sorted list.
+   */
+  printf("+-------------------------------PHASE 3-------------------------------+");
+  printf("\nElsa's sorted work list. \n");
+  printList(elsaList);
+
+
+  //****************************************************************
+  // PHASE 4: Cleanup.
+  //
+  // CS305 Students do not need to alter this code in main(), but they
+  // must implement these functions in list.c:
+  //
+  // (*) freeList().
+
+  /* Free the memory allocated for the workOrderArray and Elsa's
+   * linked list.
+   */
+  freeWorkOrders(&workOrderArray, number);
+
+  /* Step 6.  Free up all memory allocated to the linked list.
+   */
+  freeList(&elsaList);
+
+  printf("+---------------------------------------------------------------------+\n");
+
+  return EXIT_SUCCESS;
+}
+
+
+/* Function: usage()
+ * Parameters: 1. argc: the number of parameters entered at the command 
+ *                      line.
+ *             2. argv: an array of pointers, each pointing to each string 
+ *                      entered at the command line.
+ * 
+ * Description: If the program is called with the correct argc, it
+ *              does nothing; otherwise it informs the user of the
+ *              usage and exits the program.
+ */
+void usage(int argc, char * argv[])
+{
+  if (argc != REQUIRED_ARGS)
+    {
+      printf(USAGE, argv[0]);
+      exit(EXIT_FAILURE);
+    }
+}
+
+
+
